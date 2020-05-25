@@ -13,8 +13,8 @@ export class ProductListComponent
   imageMargin : number = 2;
   showImage: boolean = false;
   //listFilter: string = 'cart';
-  private _listFilter: string;
-  errorMessage: string;
+  private _listFilter: string = '';
+  errorMessage: string = '';
   get listFilter(): string {
     return this._listFilter;
   }                
@@ -26,30 +26,29 @@ export class ProductListComponent
   //imageUrl = '../assets/images/garden_cart.png';
   // products : any[] = [
   products : IProduct[] = [];
-    constructor(private productService: ProductService) {
-      
-    }
-    performFilter(filterBy: string) : IProduct[] {
+  constructor(private productService: ProductService) {
+  }
+  performFilter(filterBy: string) : IProduct[] {
       filterBy = filterBy.toLocaleLowerCase();
       return this.products.filter((product: IProduct) =>
-        product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
-    }
-    toggleImage(): void {
-      this.showImage = !this.showImage;
-    }
-    onRatingClicked(message: string): void {
+      product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+  }
+  
+  onRatingClicked(message: string): void {
       this.pageTitle = 'Product List: ' + message;
-    }
-    ngOnInit(): void {
+  }
+  toggleImage(): void {
+    this.showImage = !this.showImage;
+  }
+  ngOnInit(): void {
       // this.listFilter = 'cart';
       this.productService.getProducts().subscribe({
-        next: products => {
-          this.products = products;
-          this.filteredProducts = this.products;
-          },
-          error: err => this.errorMessage = err
-      });
-      //this.products = this.productService.getProducts();
-      
-    }
+      next: products => {
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error: err => this.errorMessage = err
+    });
+    //this.products = this.productService.getProducts();
+  }
 }

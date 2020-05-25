@@ -1,7 +1,7 @@
 <!-- <img [src]='imageUrl'> -->
 <div class="card">
     <div class="card-header">
-        <h3>{{pageTitle}}</h3>
+        {{pageTitle}}
     </div>
     <div class="card-body">
         <div class="row">
@@ -16,8 +16,8 @@
                 <h4>Filtered by :{{listFilter}}</h4>
             </div>
         </div>
-        <div class="table-responsive">
-            <table class="table" *ngIf = 'products && products.length'>
+        <div class='table-responsive'>
+            <table class='table' *ngIf = 'products && products.length'>
                 <thead>
                     <tr>
                         <th>
@@ -33,26 +33,30 @@
                         <th>Star Rating</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let product of filteredProducts">
-                    <tr>
+                <tbody>
+                    <tr *ngFor='let product of filteredProducts'>
                         <td>
                             <img *ngIf='showImage' [src]='product.imageUrl' 
                             [title]='product.productName'
                             [style.width.px]='imageWidth' 
-                            [style.margin.px]='imageMargin'/>
+                            [style.margin.px]='imageMargin'>
                         </td>
                         <td>{{product.productName}}</td>
                         <td>{{product.productCode | lowercase | convertToSpaces:'-'}}</td>
                         <td>{{product.releaseDate | date:"dd/MM/yy"}}</td>
                         <td>{{product.price | currency:'GBP':'symbol':'1.2-2'}}</td>
-                        <!-- <td>{{product.starRating}}</td> -->
                         <td>
-                            <pm-star [rating]='product.starRating' 
-                            (ratingClicked)='onRatingClicked($event)'></pm-star>
+                            <pm-star [rating]='product.starRating'
+                                     (ratingClicked)='onRatingClicked($event)'>
+                            </pm-star>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+</div>
+<div *ngIf='errorMessage'
+     class='alert alert-danger'>
+  Error: {{ errorMessage }}
 </div>
