@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product';
 import { ProductService } from './product.service';
+
 @Component({
   selector: 'pm-products',
   templateUrl: './product-list.component.html',
@@ -16,19 +17,23 @@ export class ProductListComponent
   private _listFilter: string = '';
   errorMessage: string = '';
   get listFilter(): string {
+    console.log("Inside get listFilter " + this._listFilter);
     return this._listFilter;
   }                
   set listFilter( value: string){
+    console.log("Inside set listFilter ");
     this._listFilter = value;
     this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
   } 
-  filteredProducts : IProduct[];
+  filteredProducts : IProduct[] = [];
   //imageUrl = '../assets/images/garden_cart.png';
   // products : any[] = [
   products : IProduct[] = [];
   constructor(private productService: ProductService) {
+    console.log("constructor");
   }
   performFilter(filterBy: string) : IProduct[] {
+      console.log("inside performFilter");
       filterBy = filterBy.toLocaleLowerCase();
       return this.products.filter((product: IProduct) =>
       product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
@@ -41,9 +46,11 @@ export class ProductListComponent
     this.showImage = !this.showImage;
   }
   ngOnInit(): void {
+      console.log("inside ngOnInit()");
       // this.listFilter = 'cart';
       this.productService.getProducts().subscribe({
       next: products => {
+        console.log("Products : " + products);
         this.products = products;
         this.filteredProducts = this.products;
       },

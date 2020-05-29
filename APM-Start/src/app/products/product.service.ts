@@ -7,11 +7,12 @@ import { catchError, tap } from 'rxjs/operators';
 @Injectable({
     providedIn : 'root'
 })
-export class ProductService{
+export class ProductService {
     private productUrl : 'api/products/products.json';
     //handleError: (err: any, caught: Observable<IProduct[]>) => ObservableInput<any>;
     constructor (private http: HttpClient) { }
     getProducts(): Observable<IProduct[]> {
+        console.log("inside getProducts, this.productUrl : " + this.productUrl);
         return this.http.get<IProduct[]>(this.productUrl)
         .pipe(
             tap(data => console.log('All:' + JSON.stringify(data))),
