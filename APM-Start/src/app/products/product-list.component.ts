@@ -13,9 +13,10 @@ export class ProductListComponent
   imageWidth : number = 50;
   imageMargin : number = 2;
   showImage: boolean = false;
-  //listFilter: string = 'cart';
-  private _listFilter: string = '';
-  errorMessage: string = '';
+  private _listFilter: string;
+  errorMessage: string;
+  products : IProduct[] = [];
+  filteredProducts : IProduct[] = [];
   get listFilter(): string {
     console.log("Inside get listFilter " + this._listFilter);
     return this._listFilter;
@@ -25,10 +26,6 @@ export class ProductListComponent
     this._listFilter = value;
     this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
   } 
-  filteredProducts : IProduct[] = [];
-  //imageUrl = '../assets/images/garden_cart.png';
-  // products : any[] = [
-  products : IProduct[] = [];
   constructor(private productService: ProductService) {
     console.log("constructor");
   }
@@ -47,15 +44,13 @@ export class ProductListComponent
   }
   ngOnInit(): void {
       console.log("inside ngOnInit()");
-      // this.listFilter = 'cart';
       this.productService.getProducts().subscribe({
-      next: products => {
-        console.log("Products : " + products);
-        this.products = products;
-        this.filteredProducts = this.products;
-      },
-      error: err => this.errorMessage = err
-    });
-    //this.products = this.productService.getProducts();
+        next:products=>{
+          this.products = products;
+          this.filteredProducts = this.products;
+        },
+        error:err=>this.errorMessage = err
+      });
+      
   }
 }

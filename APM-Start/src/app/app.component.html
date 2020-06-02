@@ -1,10 +1,25 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<nav class='navbar navbar-expand navbar-light bg-light'>
+  <a class='navbar-brand' [routerLink]="['/welcome']">{{pageTitle}}</a>
+  <ul class='nav nav-pills'>
+    <li><a class='nav-link' [routerLink]="['/welcome']">Home</a></li>
+    <li><a class='nav-link' [routerLink]="['/products']">Product List</a></li>
+  </ul>
+</nav> 
+<div class='container'>
+  <router-outlet></router-outlet>
+</div>
+
+<!-- <div style="text-align:left">
   <h1>
     {{pageTitle}}
   </h1>
-    <div>
+  <ul class="nav navbar-nav">
+    <li><a [routerLink]="['/welcome']">Home</a></li>
+    <li><a [routerLink]="['/products']">Product List</a></li>
+  </ul>
+  <div>
       <pm-products></pm-products>
-      <!-- <img src="../assets/images/apples.jpg"> -->
-    </div>
+  </div>
 </div>
+ -->
